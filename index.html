@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Про-Калькулятор ставок</title>
+    <title>Про-Трекер Ставок</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -32,13 +32,13 @@
         <div class="row">
             <div class="form-group">
                 <label for="betSport">Вид спорта</label>
-                <input type="text" id="betSport" list="sportsList" placeholder="Футбол, Киберспорт...">
+                <input type="text" id="betSport" list="sportsList" placeholder="Футбол...">
                 <datalist id="sportsList">
                     <option value="Футбол">
+                    <option value="Хоккей">
                     <option value="Баскетбол">
                     <option value="Теннис">
-                    <option value="Хоккей">
-                    <option value="Киберспорт (CS2/Dota 2)">
+                    <option value="Киберспорт">
                     <option value="Бокс/MMA">
                 </datalist>
             </div>
@@ -47,6 +47,28 @@
                 <input type="text" id="betMatch" placeholder="Реал vs Барселона">
             </div>
         </div>
+                <div class="row">
+            <div class="form-group">
+                <label for="betType">Тип исхода</label>
+                <select id="betType">
+                    <option value="П1">П1 (Победа 1)</option>
+                    <option value="Х">Х (Ничья)</option>
+                    <option value="П2">П2 (Победа 2)</option>
+                    <option value="ТБ">Тотал больше (ТБ)</option>
+                    <option value="ТМ">Тотал меньше (ТМ)</option>
+                    <option value="Ф1">Фора 1 (Ф1)</option>
+                    <option value="Ф2">Фора 2 (Ф2)</option>
+                    <option value="ИТБ1">ИТБ 1</option>
+                    <option value="ИТМ1">ИТМ 1</option>
+                    <option value="Другое">Другое</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="betDetails">Детали (опционально)</label>
+                <input type="text" id="betDetails" placeholder="напр: 2.5, -1.5, Желтые">
+            </div>
+        </div>
+
         <div class="row">
             <div class="form-group">
                 <label for="betAmount">Сумма (₽)</label>
@@ -69,19 +91,14 @@
     <!-- Вкладка: Все ставки -->
     <div class="tab-content" id="allBetsTab">
         <div class="card">
-            <ul class="bet-list" id="betList">
-                <!-- Ставки будут здесь -->
-            </ul>
+            <ul class="bet-list" id="betList"></ul>
             <button class="btn-reset" id="resetAllBtn">🗑️ Очистить всё</button>
         </div>
     </div>
 
-    <!-- Вкладка: Статистика -->
-    <div class="tab-content" id="statsTab" style="display: none;">
+    <!-- Вкладка: Статистика -->    <div class="tab-content" id="statsTab" style="display: none;">
         <div class="card">
-            <div id="statsContainer">
-                <!-- Статистика по видам спорта будет здесь -->
-            </div>
+            <div id="statsContainer"></div>
         </div>
     </div>
 
