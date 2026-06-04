@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор ставок</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent: #4caf50;
+            --accent-hover: #45a049;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --border: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent);
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
+
+        .balance-display {            text-align: center;
+            padding: 15px;
+        }
+
+        .balance-display h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .balance-display .amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .balance-display .profit {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .profit.positive { color: var(--accent); }
+        .profit.negative { color: var(--danger); }
+        .profit.zero { color: var(--text-secondary); }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: #2a2a2a;
+            color: var(--text-primary);
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;            border-color: var(--accent);
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .row .form-group {
+            flex: 1;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-reset {
+            background-color: transparent;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            margin-top: 10px;
+        }
+
+        .btn-reset:hover {
+            background-color: rgba(244, 67, 54, 0.1);
+        }
+
+        .bet-list {
+            list-style: none;
+            padding: 0;            margin: 0;
+        }
+
+        .bet-item {
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--warning);
+        }
+
+        .bet-item.won { border-left-color: var(--accent); }
+        .bet-item.lost { border-left-color: var(--danger); }
+
+        .bet-info {
+            flex: 1;
+        }
+
+        .bet-info .odds {
+            font-weight: bold;
+            color: var(--warning);
+        }
+        .bet-item.won .odds { color: var(--accent); }
+        .bet-item.lost .odds { color: var(--danger); }
+
+        .bet-info .details {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .bet-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            width: auto;
+            border-radius: 6px;
+        }
+
+        .btn-won {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);        }
+        .btn-won:hover, .btn-won.active {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-lost {
+            background-color: rgba(244, 67, 54, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        .btn-lost:hover, .btn-lost.active {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            font-size: 1.2rem;
+            padding: 8px 12px;
+        }
+        .btn-delete:hover {
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📊 Калькулятор ставок</h1>
+
+    <!-- Баланс -->
+    <div class="card balance-display">
+        <h2>Итоговый баланс</h2>
+        <div class="amount" id="currentBalance">0 ₽</div>
+        <div class="profit zero" id="profitDisplay">Прибыль: 0 ₽</div>
+    </div>
+
+    <!-- Настройки -->
+    <div class="card">        <div class="form-group">
+            <label for="initialBalance">Начальный баланс (₽)</label>
+            <input type="number" id="initialBalance" placeholder="Например: 10000" min="0">
+        </div>
+    </div>
+
+    <!-- Добавление ставки -->
+    <div class="card">
+        <h3 style="margin-top: 0;">Новая ставка</h3>
+        <div class="row">
+            <div class="form-group">
+                <label for="betAmount">Сумма ставки (₽)</label>
+                <input type="number" id="betAmount" placeholder="1000" min="1">
+            </div>
+            <div class="form-group">
+                <label for="betOdds">Коэффициент</label>
+                <input type="number" id="betOdds" placeholder="1.85" min="1.01" step="0.01">
+            </div>
+        </div>
+        <button class="btn-primary" onclick="addBet()">Добавить ставку</button>
+    </div>
+
+    <!-- История -->
+    <div class="card">
+        <h3 style="margin-top: 0;">История ставок</h3>
+        <ul class="bet-list" id="betList">
+            <!-- Ставки будут добавляться сюда через JS -->
+        </ul>
+        <button class="btn-reset" onclick="resetAll()">🗑️ Очистить всё и начать заново</button>
+    </div>
+</div>
+
+<script>
+    // Состояние приложения
+    let state = {
+        initialBalance: 0,
+        bets: [] // { id, amount, odds, status: 'pending' | 'won' | 'lost' }
+    };
+
+    // Загрузка данных при старте
+    function loadState() {
+        const saved = localStorage.getItem('betCalculatorState');
+        if (saved) {
+            state = JSON.parse(saved);
+            document.getElementById('initialBalance').value = state.initialBalance || '';
+        }
+        render();
+    }
+
+    // Сохранение данных    function saveState() {
+        localStorage.setItem('betCalculatorState', JSON.stringify(state));
+        render();
+    }
+
+    // Обновление начального баланса
+    document.getElementById('initialBalance').addEventListener('input', (e) => {
+        state.initialBalance = parseFloat(e.target.value) || 0;
+        saveState();
+    });
+
+    // Добавление новой ставки
+    function addBet() {
+        const amountInput = document.getElementById('betAmount');
+        const oddsInput = document.getElementById('betOdds');
+        
+        const amount = parseFloat(amountInput.value);
+        const odds = parseFloat(oddsInput.value);
+
+        if (!amount || amount <= 0) {
+            alert('Введите корректную сумму ставки');
+            return;
+        }
+        if (!odds || odds < 1.01) {
+            alert('Коэффициент должен быть больше 1.00');
+            return;
+        }
+
+        const newBet = {
+            id: Date.now(),
+            amount: amount,
+            odds: odds,
+            status: 'pending'
+        };
+
+        state.bets.unshift(newBet); // Добавляем в начало списка
+        
+        // Очистка полей
+        amountInput.value = '';
+        oddsInput.value = '';
+        amountInput.focus();
+
+        saveState();
+    }
+
+    // Изменение статуса ставки
+    function updateStatus(id, status) {
+        const bet = state.bets.find(b => b.id === id);
+        if (bet) {
+            bet.status = status;            saveState();
+        }
+    }
+
+    // Удаление ставки
+    function deleteBet(id) {
+        if (confirm('Удалить эту ставку из истории?')) {
+            state.bets = state.bets.filter(b => b.id !== id);
+            saveState();
+        }
+    }
+
+    // Полный сброс
+    function resetAll() {
+        if (confirm('Вы уверены? Вся история и баланс будут удалены.')) {
+            state = { initialBalance: 0, bets: [] };
+            document.getElementById('initialBalance').value = '';
+            saveState();
+        }
+    }
+
+    // Форматирование денег
+    function formatMoney(amount) {
+        return amount.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ₽';
+    }
+
+    // Отрисовка интерфейса
+    function render() {
+        const betListEl = document.getElementById('betList');
+        betListEl.innerHTML = '';
+
+        let currentBalance = state.initialBalance;
+        let totalProfit = 0;
+
+        // Расчет баланса и прибыли
+        state.bets.forEach(bet => {
+            if (bet.status === 'won') {
+                const profit = bet.amount * (bet.odds - 1);
+                currentBalance += profit;
+                totalProfit += profit;
+            } else if (bet.status === 'lost') {
+                currentBalance -= bet.amount;
+                totalProfit -= bet.amount;
+            }
+        });
+
+        // Обновление отображения баланса
+        document.getElementById('currentBalance').textContent = formatMoney(currentBalance);
+        
+        const profitEl = document.getElementById('profitDisplay');        const profitSign = totalProfit >= 0 ? '+' : '';
+        profitEl.textContent = `Прибыль: ${profitSign}${formatMoney(totalProfit)}`;
+        
+        profitEl.className = 'profit ' + (totalProfit > 0 ? 'positive' : totalProfit < 0 ? 'negative' : 'zero');
+
+        // Отрисовка списка ставок
+        if (state.bets.length === 0) {
+            betListEl.innerHTML = '<div class="empty-state">История ставок пуста. Добавьте первую ставку!</div>';
+        } else {
+            state.bets.forEach(bet => {
+                const li = document.createElement('li');
+                li.className = `bet-item ${bet.status}`;
+                
+                const potentialWin = (bet.amount * bet.odds).toFixed(2);
+                const profit = (bet.amount * (bet.odds - 1)).toFixed(2);
+
+                li.innerHTML = `
+                    <div class="bet-info">
+                        <div>Ставка: <strong>${formatMoney(bet.amount)}</strong> | Коэф: <span class="odds">${bet.odds}</span></div>
+                        <div class="details">
+                            ${bet.status === 'pending' ? `Возможный выигрыш: ${formatMoney(potentialWin)} (чистыми: +${formatMoney(profit)})` : 
+                              bet.status === 'won' ? `✅ Выигрыш: +${formatMoney(profit)}` : 
+                              `❌ Проигрыш: -${formatMoney(bet.amount)}`}
+                        </div>
+                    </div>
+                    <div class="bet-actions">
+                        <button class="btn-action btn-won ${bet.status === 'won' ? 'active' : ''}" onclick="updateStatus(${bet.id}, 'won')">✅</button>
+                        <button class="btn-action btn-lost ${bet.status === 'lost' ? 'active' : ''}" onclick="updateStatus(${bet.id}, 'lost')">❌</button>
+                        <button class="btn-action btn-delete" onclick="deleteBet(${bet.id})">×</button>
+                    </div>
+                `;
+                betListEl.appendChild(li);
+            });
+        }
+    }
+
+    // Инициализация
+    loadState();
+</script>
+
+</body>
+</html>
