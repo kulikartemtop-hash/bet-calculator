@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <!-- Добавление ставки -->
+    <!-- Форма добавления ставки -->
     <div class="card">
         <h3 style="margin-top: 0;">Новая ставка</h3>
         <div class="row">
@@ -40,14 +40,15 @@
                     <option value="Теннис">
                     <option value="Киберспорт">
                     <option value="Бокс/MMA">
+                    <option value="Волейбол">
                 </datalist>
             </div>
             <div class="form-group">
                 <label for="betMatch">Матч / Событие</label>
                 <input type="text" id="betMatch" placeholder="Реал vs Барселона">
             </div>
-        </div>
-                <div class="row">
+        </div>        
+        <div class="row">
             <div class="form-group">
                 <label for="betType">Тип исхода</label>
                 <select id="betType">
@@ -65,13 +66,13 @@
             </div>
             <div class="form-group">
                 <label for="betDetails">Детали (опционально)</label>
-                <input type="text" id="betDetails" placeholder="напр: 2.5, -1.5, Желтые">
+                <input type="text" id="betDetails" placeholder="напр: 2.5, -1.5">
             </div>
         </div>
 
         <div class="row">
             <div class="form-group">
-                <label for="betAmount">Сумма (₽)</label>
+                <label for="betAmount">Сумма ставки (₽)</label>
                 <input type="number" id="betAmount" placeholder="1000" min="1">
             </div>
             <div class="form-group">
@@ -79,24 +80,24 @@
                 <input type="number" id="betOdds" placeholder="1.85" min="1.01" step="0.01">
             </div>
         </div>
-        <button class="btn-primary" id="addBetBtn">Добавить ставку</button>
+        <button class="btn-primary" id="addBetBtn">➕ Добавить ставку</button>
     </div>
 
-    <!-- Вкладки -->
+    <!-- Вкладки навигации -->
     <div class="tabs">
         <button class="tab-btn active" data-tab="all">📋 Все ставки</button>
         <button class="tab-btn" data-tab="stats">📈 Статистика по видам спорта</button>
     </div>
 
-    <!-- Вкладка: Все ставки -->
+    <!-- Контент вкладки: Все ставки -->
     <div class="tab-content" id="allBetsTab">
         <div class="card">
             <ul class="bet-list" id="betList"></ul>
-            <button class="btn-reset" id="resetAllBtn">🗑️ Очистить всё</button>
+            <button class="btn-reset" id="resetAllBtn">🗑️ Очистить всю историю</button>
         </div>
     </div>
-
-    <!-- Вкладка: Статистика -->    <div class="tab-content" id="statsTab" style="display: none;">
+    <!-- Контент вкладки: Статистика -->
+    <div class="tab-content" id="statsTab" style="display: none;">
         <div class="card">
             <div id="statsContainer"></div>
         </div>
