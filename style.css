@@ -8,6 +8,7 @@
     --danger: #f44336;
     --warning: #ff9800;
     --border: #333333;
+    --info: #2196f3;
 }
 
 body {
@@ -20,16 +21,8 @@ body {
     justify-content: center;
 }
 
-.container {
-    width: 100%;
-    max-width: 600px;
-}
-
-h1 {
-    text-align: center;
-    color: var(--accent);
-    margin-bottom: 30px;
-}
+.container { width: 100%; max-width: 600px; }
+h1 { text-align: center; color: var(--accent); margin-bottom: 20px; }
 
 .card {
     background-color: var(--card-bg);
@@ -41,88 +34,88 @@ h1 {
 }
 
 .balance-display { text-align: center; padding: 15px; }
-.balance-display h2 { margin: 0; font-size: 1.2rem; color: var(--text-secondary); }
+.balance-display h2 { margin: 0; font-size: 1.1rem; color: var(--text-secondary); }
 .balance-display .amount { font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
 .balance-display .profit { font-size: 1.1rem; font-weight: 600; }
-
 .profit.positive { color: var(--accent); }
 .profit.negative { color: var(--danger); }
 .profit.zero { color: var(--text-secondary); }
+
 .form-group { margin-bottom: 15px; }
 label { display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.9rem; }
-
 input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background-color: #2a2a2a;
-    color: var(--text-primary);
-    font-size: 1rem;
-    box-sizing: border-box;
-    transition: border-color 0.3s;
-}
-input:focus { outline: none; border-color: var(--accent); }
+    width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border);
+    background-color: #2a2a2a; color: var(--text-primary); font-size: 1rem;
+    box-sizing: border-box; transition: border-color 0.3s;
+}input:focus { outline: none; border-color: var(--accent); }
 
 .row { display: flex; gap: 15px; }
 .row .form-group { flex: 1; }
 
 button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
+    width: 100%; padding: 14px; border: none; border-radius: 8px;
+    font-size: 1rem; font-weight: bold; cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
 }
 button:active { transform: scale(0.98); }
-
 .btn-primary { background-color: var(--accent); color: white; }
 .btn-primary:hover { background-color: var(--accent-hover); }
-
-.btn-reset {
-    background-color: transparent;
-    border: 1px solid var(--danger);
-    color: var(--danger);
-    margin-top: 10px;
-}
+.btn-reset { background-color: transparent; border: 1px solid var(--danger); color: var(--danger); margin-top: 10px; }
 .btn-reset:hover { background-color: rgba(244, 67, 54, 0.1); }
 
+/* Стили для вкладок */
+.tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+.tab-btn {
+    flex: 1; background-color: var(--card-bg); color: var(--text-secondary);
+    border: 1px solid var(--border); padding: 12px;
+}
+.tab-btn.active {
+    background-color: var(--accent); color: white; border-color: var(--accent);
+}
+.tab-content { animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Список ставок */
 .bet-list { list-style: none; padding: 0; margin: 0; }
 .bet-item {
-    background-color: #2a2a2a;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-    display: flex;    justify-content: space-between;
-    align-items: center;
-    border-left: 4px solid var(--warning);
+    background-color: #2a2a2a; border-radius: 8px; padding: 15px;
+    margin-bottom: 10px; display: flex; justify-content: space-between;
+    align-items: center; border-left: 4px solid var(--warning);
 }
 .bet-item.won { border-left-color: var(--accent); }
 .bet-item.lost { border-left-color: var(--danger); }
 
 .bet-info { flex: 1; }
+.bet-info .match-title { font-weight: bold; font-size: 1.05rem; margin-bottom: 4px; }
+.bet-info .sport-tag { 
+    display: inline-block; background: rgba(33, 150, 243, 0.2); color: var(--info); 
+    font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 8px;
+}
 .bet-info .odds { font-weight: bold; color: var(--warning); }
 .bet-item.won .odds { color: var(--accent); }
 .bet-item.lost .odds { color: var(--danger); }
 .bet-info .details { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
 
-.bet-actions { display: flex; gap: 8px; }
-.btn-action {
-    padding: 8px 12px;
-    font-size: 0.85rem;
-    width: auto;
-    border-radius: 6px;
-}
+.bet-actions { display: flex; gap: 8px; }.btn-action { padding: 8px 12px; font-size: 0.85rem; width: auto; border-radius: 6px; }
 .btn-won { background-color: rgba(76, 175, 80, 0.2); color: var(--accent); border: 1px solid var(--accent); }
 .btn-won:hover, .btn-won.active { background-color: var(--accent); color: white; }
-
 .btn-lost { background-color: rgba(244, 67, 54, 0.2); color: var(--danger); border: 1px solid var(--danger); }
 .btn-lost:hover, .btn-lost.active { background-color: var(--danger); color: white; }
-
 .btn-delete { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border); font-size: 1.2rem; padding: 8px 12px; }
 .btn-delete:hover { color: var(--danger); border-color: var(--danger); }
+
+/* Карточки статистики */
+.stat-card {
+    background-color: #2a2a2a; border-radius: 8px; padding: 15px;
+    margin-bottom: 12px; border: 1px solid var(--border);
+}
+.stat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.stat-header h4 { margin: 0; font-size: 1.1rem; color: var(--info); }
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem; }
+.stat-item { display: flex; flex-direction: column; }
+.stat-label { color: var(--text-secondary); font-size: 0.8rem; }
+.stat-value { font-weight: bold; font-size: 1rem; }
+.stat-value.positive { color: var(--accent); }
+.stat-value.negative { color: var(--danger); }
 
 .empty-state { text-align: center; color: var(--text-secondary); padding: 20px; font-style: italic; }
