@@ -1,0 +1,13 @@
+# ОС
+.DS_Store
+Thumbs.db
+
+# Редакторы кода
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Логи и временные файлы
+*.log
+npm-debug.log*
