@@ -11,6 +11,8 @@
     --info: #2196f3;
 }
 
+* { box-sizing: border-box; }
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-color);
@@ -22,7 +24,7 @@ body {
 }
 
 .container { width: 100%; max-width: 600px; }
-h1 { text-align: center; color: var(--accent); margin-bottom: 20px; }
+h1 { text-align: center; color: var(--accent); margin-bottom: 20px; font-size: 1.8rem; }
 
 .card {
     background-color: var(--card-bg);
@@ -33,30 +35,29 @@ h1 { text-align: center; color: var(--accent); margin-bottom: 20px; }
     border: 1px solid var(--border);
 }
 
-.balance-display { text-align: center; padding: 15px; }
-.balance-display h2 { margin: 0; font-size: 1.1rem; color: var(--text-secondary); }
-.balance-display .amount { font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
-.balance-display .profit { font-size: 1.1rem; font-weight: 600; }
+.balance-display { text-align: center; padding: 20px; }
+.balance-display h2 { margin: 0; font-size: 1.1rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+.balance-display .amount { font-size: 2.8rem; font-weight: 800; margin: 10px 0; }
+.balance-display .profit { font-size: 1.2rem; font-weight: 600; }
 .profit.positive { color: var(--accent); }
 .profit.negative { color: var(--danger); }
 .profit.zero { color: var(--text-secondary); }
 
 .form-group { margin-bottom: 15px; }
-label { display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.9rem; }
+label { display: block; margin-bottom: 6px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
 
-/* Обновлено: стили теперь применяются и к select */
 input, select {
-    width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border);
-    background-color: #2a2a2a; color: var(--text-primary); font-size: 1rem;    box-sizing: border-box; transition: border-color 0.3s;
+    width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border);    background-color: #2a2a2a; color: var(--text-primary); font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
-input:focus, select:focus { outline: none; border-color: var(--accent); }
+input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2); }
 
 .row { display: flex; gap: 15px; }
 .row .form-group { flex: 1; }
 
 button {
     width: 100%; padding: 14px; border: none; border-radius: 8px;
-    font-size: 1rem; font-weight: bold; cursor: pointer;
+    font-size: 1rem; font-weight: 600; cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
 }
 button:active { transform: scale(0.98); }
@@ -68,60 +69,64 @@ button:active { transform: scale(0.98); }
 .tabs { display: flex; gap: 10px; margin-bottom: 15px; }
 .tab-btn {
     flex: 1; background-color: var(--card-bg); color: var(--text-secondary);
-    border: 1px solid var(--border); padding: 12px;
+    border: 1px solid var(--border); padding: 12px; font-weight: 600;
 }
 .tab-btn.active { background-color: var(--accent); color: white; border-color: var(--accent); }
 .tab-content { animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
 .bet-list { list-style: none; padding: 0; margin: 0; }
 .bet-item {
     background-color: #2a2a2a; border-radius: 8px; padding: 15px;
     margin-bottom: 10px; display: flex; justify-content: space-between;
-    align-items: flex-start; /* Изменено для лучшего выравнивания */
-    border-left: 4px solid var(--warning);
+    align-items: flex-start; border-left: 4px solid var(--warning);
 }
 .bet-item.won { border-left-color: var(--accent); }
 .bet-item.lost { border-left-color: var(--danger); }
 
 .bet-info { flex: 1; margin-right: 10px; }
-.bet-info .match-title { font-weight: bold; font-size: 1.05rem; margin-bottom: 6px; }
+.bet-info .match-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; line-height: 1.3; }
 .bet-info .sport-tag { 
-    display: inline-block; background: rgba(33, 150, 243, 0.2); color: var(--info); 
-    font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 6px;
+    display: inline-block; background: rgba(33, 150, 243, 0.15); color: var(--info); 
+    font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; margin-right: 6px; font-weight: 600;
 }
-/* Новый стиль для типа ставки */
 .bet-info .bet-type-tag { 
-    display: inline-block; background: rgba(255, 152, 0, 0.2); color: var(--warning); 
-    font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; margin-right: 8px; font-weight: bold;
+    display: inline-block; background: rgba(255, 152, 0, 0.15); color: var(--warning); 
+    font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; margin-right: 8px; font-weight: 700;
 }
-.bet-item.won .bet-type-tag { background: rgba(76, 175, 80, 0.2); color: var(--accent); }
-.bet-item.lost .bet-type-tag { background: rgba(244, 67, 54, 0.2); color: var(--danger); }
-.bet-info .odds { font-weight: bold; color: var(--warning); }
+.bet-item.won .bet-type-tag { background: rgba(76, 175, 80, 0.15); color: var(--accent); }
+.bet-item.lost .bet-type-tag { background: rgba(244, 67, 54, 0.15); color: var(--danger); }
+.bet-info .odds { font-weight: 700; color: var(--warning); }
 .bet-item.won .odds { color: var(--accent); }
 .bet-item.lost .odds { color: var(--danger); }
 .bet-info .details { font-size: 0.85rem; color: var(--text-secondary); margin-top: 6px; }
 
-.bet-actions { display: flex; gap: 8px; flex-shrink: 0; }
-.btn-action { padding: 8px 12px; font-size: 0.85rem; width: auto; border-radius: 6px; }
-.btn-won { background-color: rgba(76, 175, 80, 0.2); color: var(--accent); border: 1px solid var(--accent); }
+.bet-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.btn-action { padding: 8px 10px; font-size: 1rem; width: auto; border-radius: 6px; min-width: 40px; }
+.btn-won { background-color: rgba(76, 175, 80, 0.15); color: var(--accent); border: 1px solid var(--accent); }
 .btn-won:hover, .btn-won.active { background-color: var(--accent); color: white; }
-.btn-lost { background-color: rgba(244, 67, 54, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+.btn-lost { background-color: rgba(244, 67, 54, 0.15); color: var(--danger); border: 1px solid var(--danger); }
 .btn-lost:hover, .btn-lost.active { background-color: var(--danger); color: white; }
-.btn-delete { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border); font-size: 1.2rem; padding: 8px 12px; }
-.btn-delete:hover { color: var(--danger); border-color: var(--danger); }
+.btn-delete { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border); font-size: 1.2rem; padding: 8px 10px; width: 40px; }
+.btn-delete:hover { color: var(--danger); border-color: var(--danger); background-color: rgba(244, 67, 54, 0.1); }
 
 .stat-card {
-    background-color: #2a2a2a; border-radius: 8px; padding: 15px;
+    background-color: #2a2a2a; border-radius: 8px; padding: 16px;
     margin-bottom: 12px; border: 1px solid var(--border);
 }
-.stat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.stat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 .stat-header h4 { margin: 0; font-size: 1.1rem; color: var(--info); }
-.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem; }
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.9rem; }
 .stat-item { display: flex; flex-direction: column; }
-.stat-label { color: var(--text-secondary); font-size: 0.8rem; }
-.stat-value { font-weight: bold; font-size: 1rem; }
+.stat-label { color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 4px; }
+.stat-value { font-weight: 700; font-size: 1.1rem; }
 .stat-value.positive { color: var(--accent); }
 .stat-value.negative { color: var(--danger); }
 
-.empty-state { text-align: center; color: var(--text-secondary); padding: 20px; font-style: italic; }
+.empty-state { text-align: center; color: var(--text-secondary); padding: 30px 20px; font-style: italic; line-height: 1.5; }
+
+@media (max-width: 480px) {
+    .row { flex-direction: column; gap: 0; }
+    .bet-item { flex-direction: column; }
+    .bet-actions { margin-top: 12px; width: 100%; justify-content: flex-end; }
+}
