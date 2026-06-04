@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор ставок | Bet Calculator</title>
+    <title>Про-Калькулятор ставок</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-    <h1>📊 Калькулятор ставок</h1>
+    <h1>📊 Про-Трекер Ставок</h1>
 
     <!-- Баланс -->
     <div class="card balance-display">
@@ -21,7 +21,7 @@
     <!-- Настройки -->
     <div class="card">
         <div class="form-group">
-            <label for="initialBalance">Начальный баланс (₽)</label>
+            <label for="initialBalance">Начальный банкролл (₽)</label>
             <input type="number" id="initialBalance" placeholder="Например: 10000" min="0">
         </div>
     </div>
@@ -31,7 +31,25 @@
         <h3 style="margin-top: 0;">Новая ставка</h3>
         <div class="row">
             <div class="form-group">
-                <label for="betAmount">Сумма ставки (₽)</label>
+                <label for="betSport">Вид спорта</label>
+                <input type="text" id="betSport" list="sportsList" placeholder="Футбол, Киберспорт...">
+                <datalist id="sportsList">
+                    <option value="Футбол">
+                    <option value="Баскетбол">
+                    <option value="Теннис">
+                    <option value="Хоккей">
+                    <option value="Киберспорт (CS2/Dota 2)">
+                    <option value="Бокс/MMA">
+                </datalist>
+            </div>
+            <div class="form-group">
+                <label for="betMatch">Матч / Событие</label>
+                <input type="text" id="betMatch" placeholder="Реал vs Барселона">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="betAmount">Сумма (₽)</label>
                 <input type="number" id="betAmount" placeholder="1000" min="1">
             </div>
             <div class="form-group">
@@ -42,14 +60,31 @@
         <button class="btn-primary" id="addBetBtn">Добавить ставку</button>
     </div>
 
-    <!-- История -->
-    <div class="card">
-        <h3 style="margin-top: 0;">История ставок</h3>
-        <ul class="bet-list" id="betList">
-            <!-- Ставки будут добавляться сюда через JS -->
-        </ul>
-        <button class="btn-reset" id="resetAllBtn">🗑️ Очистить всё и начать заново</button>
+    <!-- Вкладки -->
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="all">📋 Все ставки</button>
+        <button class="tab-btn" data-tab="stats">📈 Статистика по видам спорта</button>
     </div>
+
+    <!-- Вкладка: Все ставки -->
+    <div class="tab-content" id="allBetsTab">
+        <div class="card">
+            <ul class="bet-list" id="betList">
+                <!-- Ставки будут здесь -->
+            </ul>
+            <button class="btn-reset" id="resetAllBtn">🗑️ Очистить всё</button>
+        </div>
+    </div>
+
+    <!-- Вкладка: Статистика -->
+    <div class="tab-content" id="statsTab" style="display: none;">
+        <div class="card">
+            <div id="statsContainer">
+                <!-- Статистика по видам спорта будет здесь -->
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script src="script.js" defer></script>
